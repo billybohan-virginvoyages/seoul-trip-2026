@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Billy &amp; Izzy's Seoul Birthday Trip 2026: Cloud Travel Hub, Photo Wardrobe &amp; Daily Lookbook</title>
+<meta name="theme-color" content="#0b1020">
+<script>
+/* ===== Optional: paste your Firebase web config here (or use Settings in the app) ===== */
+const FIREBASE_CONFIG = null; // e.g. {apiKey:"...",authDomain:"...",projectId:"...",appId:"..."}
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<style>
+:root{--bg:#0b1020;--card:#141b2e;--card2:#1b2440;--txt:#eef1f8;--mut:#9aa4bd;--acc:#d4af37;--acc2:#3b5bdb;--ok:#2fbf71;--warn:#f5a524;--bad:#ef4f4f;--r:18px}
+body.billy{--bg:#070d1f;--card:#0f1a36;--card2:#16244a;--acc:#d4af37;--acc2:#1e3a8a}
+body.izzy{--bg:#06140f;--card:#0d241b;--card2:#123326;--acc:#e0b453;--acc2:#0f6b4a}
+body.shared{--bg:#0d0d16;--card:#181826;--card2:#222236;--acc:#ff5a7a;--acc2:#3a6df0}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;background:var(--bg);color:var(--txt);transition:background .4s;padding-bottom:80px}
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid #ffffff14;padding:10px 14px}
+h1{font-size:16px;margin:0 0 2px;line-height:1.25}
+h1 small{display:block;color:var(--mut);font-weight:500;font-size:11px}
+h2{font-size:18px;margin:6px 0 10px}h3{font-size:15px;margin:0 0 8px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sp{flex:1}
+.persona{display:flex;gap:6px;margin-top:8px}
+.persona button{flex:1;padding:8px 4px;border-radius:999px;border:1px solid #ffffff22;background:var(--card);color:var(--txt);font-weight:600;font-size:13px;cursor:pointer}
+.persona button.on{background:var(--acc);color:#111;border-color:var(--acc)}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:20;display:flex;background:var(--card);border-top:1px solid #ffffff1a;padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{flex:1;background:none;border:0;color:var(--mut);padding:9px 2px;font-size:11px;cursor:pointer}
+nav.tabs button b{display:block;font-size:19px}
+nav.tabs button.on{color:var(--acc)}
+main{max-width:980px;margin:0 auto;padding:14px}
+.tab{display:none;animation:fade .3s ease}.tab.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:12px;border:1px solid #ffffff10;box-shadow:0 6px 20px #0005}
+.grid{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:720px){.grid.g2{grid-template-columns:1fr 1fr}.grid.g3{grid-template-columns:repeat(3,1fr)}nav.tabs{position:sticky;top:auto}}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;background:var(--card2);color:var(--txt);border:1px solid #ffffff1f}
+.b-gold{background:linear-gradient(90deg,#b8902a,#f3d77a);color:#1a1300;border:0}
+.b-ok{background:#2fbf7133;color:#7ef0b0}.b-warn{background:#f5a52433;color:#ffd08a}.b-bad{background:#ef4f4f33;color:#ff9c9c}
+.b-billy{background:#1e3a8a;color:#f3d77a}.b-izzy{background:#0f6b4a;color:#f1d38a}.b-shared{background:#4b2a63;color:#ffc2d6}
+.mut{color:var(--mut);font-size:13px}
+.bar{height:10px;background:#ffffff14;border-radius:99px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc2),var(--acc));transition:width .5s}
+input,select,textarea{background:var(--card2);color:var(--txt);border:1px solid #ffffff22;border-radius:12px;padding:9px 10px;font-size:14px;font-family:inherit;max-width:100%}
+textarea{width:100%;min-height:90px}
+.btn{background:var(--acc);color:#111;border:0;border-radius:12px;padding:9px 14px;font-weight:700;cursor:pointer;font-size:14px}
+.btn.g{background:var(--card2);color:var(--txt);border:1px solid #ffffff22}
+.btn.s{padding:5px 9px;font-size:12px;border-radius:9px}
+.btn.d{background:#ef4f4f;color:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.chip{padding:6px 11px;border-radius:999px;background:var(--card2);border:1px solid #ffffff1f;color:var(--txt);font-size:12px;cursor:pointer}
+.chip.on{background:var(--acc);color:#111}
+.chk{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid #ffffff0d}
+.chk input{width:20px;height:20px;accent-color:var(--acc)}
+.chk.done span.t{text-decoration:line-through;color:var(--mut)}
+.del{background:none;border:0;color:var(--mut);cursor:pointer;font-size:16px}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.witem{background:var(--card2);border-radius:14px;overflow:hidden;border:1px solid #ffffff14}
+.witem .ph{aspect-ratio:1;background:#0004 center/cover;display:flex;align-items:center;justify-content:center;font-size:40px}
+.witem .in{padding:8px;font-size:12px}
+.witem .in b{display:block;font-size:13px;margin-bottom:3px}
+.day{border-left:4px solid var(--acc)}
+.day.bday{background:linear-gradient(135deg,var(--card),#3a1830)}
+.ev{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed #ffffff14;align-items:flex-start}
+.ev .tm{min-width:68px;color:var(--acc);font-weight:700;font-size:12px}
+.wx{font-size:12px;background:#ffffff0d;border-radius:10px;padding:6px 9px;margin:6px 0}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:6px}
+.slot{background:#ffffff08;border-radius:10px;padding:6px;font-size:11px}
+.slot select{width:100%;font-size:12px;padding:5px;margin-top:3px}
+.slot img{width:100%;height:60px;object-fit:cover;border-radius:7px;margin-top:4px}
+.alert{border-left:4px solid var(--warn)}.alert.res{opacity:.55;border-left-color:var(--ok)}
+.modal{position:fixed;inset:0;background:#000a;z-index:50;display:none;align-items:flex-end;justify-content:center}
+.modal.on{display:flex}
+.modal .card{width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;margin:0}
+@media(min-width:720px){.modal{align-items:center}.modal .card{border-radius:22px}}
+.form{display:grid;gap:8px}.form label{font-size:12px;color:var(--mut)}
+.form input,.form select{width:100%}
+.hero{background:linear-gradient(135deg,var(--acc2),var(--card));}
+.stat{font-size:26px;font-weight:800;color:var(--acc)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#000d;padding:10px 16px;border-radius:12px;z-index:60;font-size:13px;display:none}
+code{background:#0006;padding:1px 5px;border-radius:5px;font-size:12px}
+ol li{margin-bottom:6px;font-size:14px}
+</style>
+</head>
+<body class="shared">
+<header>
+  <div class="row">
+    <h1>🇰🇷 Billy &amp; Izzy's Seoul Birthday Trip 2026<small>Cloud Travel Hub · Photo Wardrobe · Daily Lookbook</small></h1>
+    <span class="sp"></span>
+    <span id="syncBadge" class="badge">Local only</span>
+  </div>
+  <div class="persona" id="persona">
+    <button data-p="billy">Billy 👔</button>
+    <button data-p="izzy">Izzy 🤵</button>
+    <button data-p="shared" class="on">Shared 🇰🇷</button>
+  </div>
+</header>
+<main>
+  <section class="tab on" id="t-home"></section>
+  <section class="tab" id="t-itin"></section>
+  <section class="tab" id="t-ward"></section>
+  <section class="tab" id="t-pack"></section>
+  <section class="tab" id="t-set"></section>
+</main>
+<nav class="tabs" id="tabs">
+  <button data-t="home" class="on"><b>🏠</b>Home</button>
+  <button data-t="itin"><b>🗓️</b>Itinerary</button>
+  <button data-t="ward"><b>📸</b>Wardrobe</button>
+  <button data-t="pack"><b>🧳</b>Packing</button>
+  <button data-t="set"><b>☁️</b>Sync</button>
+</nav>
+<div class="modal" id="modal"><div class="card" id="modalBody"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CLIENT=uid();
+const CATS=[['tops','👕','Shirts & Tops'],['bottoms','👖','Pants & Bottoms'],['shoes','👟','Shoes & Footwear'],['outer','🧥','Jackets & Outerwear'],['acc','🕶️','Accessories & Jewelry'],['extras','🧦','Extras & Undergarments']];
+const SLOTS=[['top','Top','tops'],['bottom','Bottom','bottoms'],['outer','Outerwear','outer'],['shoes','Shoes','shoes'],['acc','Accessories','acc']];
+const OWN={billy:'Billy',izzy:'Izzy',shared:'Shared'};
+const DAYS=[
+ ['2026-10-22','Thu',64,45,'Crisp & sunny, layering required','Arrival Day ✈️'],
+ ['2026-10-23','Fri',66,47,'Mostly sunny, cool morning','Spa Day 💆'],
+ ['2026-10-24','Sat',65,46,'Clear, breezy afternoon – comfy walking shoes','Palaces & Markets 🏯'],
+ ['2026-10-25','Sun',63,46,'Partly cloudy, light jacket','Apgujeong Chill ☕'],
+ ['2026-10-26','Mon',62,44,'Crisp & clear, chilly after dark (fountain!)','Billy\'s Birthday 🎂'],
+ ['2026-10-27','Tue',61,44,'Mild, chance of light showers','Matching Tattoos 🌸'],
+ ['2026-10-28','Wed',60,43,'Cool & cloudy','Mongtan Night 🥩'],
+ ['2026-10-29','Thu',59,40,'Colder outside the city – warm layers for Nami','Nami Island 🍁'],
+ ['2026-10-30','Fri',60,42,'Sunny, cool','Workshops & Wellness 🐚'],
+ ['2026-10-31','Sat',61,43,'Partly cloudy','Last Shopping 🛍️'],
+ ['2026-11-01','Sun',58,41,'Chilly morning, travel comfy','Fly Home 🏠']];
+const ev=(date,time,title,detail,who='shared')=>({id:uid(),date,time,title,detail,who});
+function defaults(){return{
+ itinerary:[
+  ev('2026-10-22','3:45 PM','✈️ AA281 arrives ICN','Departs Oct 21 · MIA → DFW → ICN, American Airlines'),
+  ev('2026-10-22','5:00 PM','🚐 Private Hyundai Staria transfer','ICN → Josun Palace, Gangnam (check-in)'),
+  ev('2026-10-23','10:00 AM','💆 Neok Aesthetic Spa','110-min BIUM Premium Line · Gangnam'),
+  ev('2026-10-24','9:00 AM','🚙 Private Luxury SUV Tour (Escalade)','Gyeongbokgung · Bukchon Hanok Village · Gwangjang Market · Starfield Library · Bongeunsa'),
+  ev('2026-10-25','All day','☕ Apgujeong / Cheongdam-dong chill day','Boutiques, cafés, Rodeo St – unscheduled'),
+  ev('2026-10-26','9:00 AM','🚘 Private Driver (9 AM – Midnight)','On call all day'),
+  ev('2026-10-26','10:00 AM','👘 Arihanbok Royal Hanbok Rental & Photoshoot',''),
+  ev('2026-10-26','1:00 PM','🍜 Lunch at Myeongdong Kyoja','Famous kalguksu & mandu'),
+  ev('2026-10-26','7:00 PM','🎂 Birthday Dinner at Alla Prima','Reservation 7:00 PM'),
+  ev('2026-10-26','9:00 PM','⛲ Banpo Moonlight Rainbow Fountain show','Check show times (seasonal)'),
+  ev('2026-10-27','11:00 AM','🍲 Namdaemun Kalguksu lunch','Eat 1–2 hrs before tattoo'),
+  ev('2026-10-27','12:30 PM','🌸 Mindori Studio – matching cherry blossom tattoos','Mapo-gu · see tattoo rules alert'),
+  ev('2026-10-28','7:00 PM','🥩 Dinner at Mongtan','Booking request pending – concierge queue'),
+  ev('2026-10-29','8:30 AM','🍁 Private Tour: Nami Island & Garden of Morning Calm',''),
+  ev('2026-10-30','11:30 AM','🐚 Jinjooshell Mother-of-Pearl workshop',''),
+  ev('2026-10-30','3:30 PM','🩺 Dr Evers Gangnam appointment',''),
+  ev('2026-10-31','All day','🛍️ Departure prep / last-minute shopping','Pack, souvenirs, tax refund receipts'),
+  ev('2026-11-01','2:30 PM','🚐 Transfer to ICN','Pickup: Josun Palace (Gangnam) – confirm!'),
+  ev('2026-11-01','6:35 PM','✈️ AA flight home departs ICN','')],
+ alerts:[
+  {id:'a1',title:'⚠️ Nov 1 Transfer Location Alert',detail:'Pickup currently says "Yeouido" – needs updating to Josun Palace (Gangnam).',status:'open'},
+  {id:'a2',title:'⚠️ Tattoo Rules (Oct 27)',detail:'Eat 1–2 hrs prior · No alcohol 24h before · No heavy caffeine morning-of · Moisturize the days before (no lotion day-of) · Wear loose dark clothing.',status:'open'},
+  {id:'a3',title:'⚠️ Mongtan Booking Request',detail:'Needs concierge queue assistance (AA ConciergeKey / Marriott concierge).',status:'open'}],
+ cats:['Korea Essentials','Documents','Tech','Toiletries','Clothing','Tattoo Prep'],
+ checklist:[
+  ['220V Type C/F power adapters','Korea Essentials','shared'],['T-money / WOWPASS card','Korea Essentials','shared'],
+  ['Download Naver Map / KakaoMap','Korea Essentials','shared'],['Install Papago translator app','Korea Essentials','shared'],
+  ['Passport validity check (6+ months)','Documents','shared'],['K-ETA / arrival docs check','Documents','shared'],
+  ['Billy passport','Documents','billy'],['Izzy passport','Documents','izzy'],['AA ConciergeKey card','Documents','billy'],
+  ['Marriott Bonvoy app & confirmation','Documents','billy'],['Travel insurance info','Documents','shared'],
+  ['eSIM / pocket WiFi','Tech','shared'],['Portable battery pack','Tech','billy'],['Phone chargers & cables','Tech','izzy'],
+  ['Prescriptions & meds','Toiletries','shared'],['Skincare (spa-friendly)','Toiletries','izzy'],
+  ['Comfortable walking shoes','Clothing','shared'],['Warm layer for Nami Island','Clothing','izzy'],['Birthday outfit','Clothing','billy'],
+  ['Loose dark clothing for tattoo day','Tattoo Prep','shared'],['Unscented moisturizer (days before)','Tattoo Prep','shared'],
+  ['Foldable tote for shopping','Korea Essentials','shared']].map(([text,cat,owner])=>({id:uid(),text,cat,owner,done:false})),
+ outfits:{}, updatedAt:0 };}
+// ---------- State ----------
+const LS='seoulTrip2026';
+let ui=JSON.parse(localStorage.getItem(LS+':ui')||'{}');
+ui={persona:'shared',tab:'home',packFilter:'all',wardFilter:'all',room:'SEOUL-2026',...ui};
+let state, wardrobe;
+function loadLocal(){
+  try{state=JSON.parse(localStorage.getItem(LS+':state:'+ui.room))}catch(e){state=null}
+  if(!state)state=defaults();
+  try{wardrobe=JSON.parse(localStorage.getItem(LS+':ward:'+ui.room))||[]}catch(e){wardrobe=[]}
+}
+function saveUI(){localStorage.setItem(LS+':ui',JSON.stringify(ui))}
+function saveLocal(){
+  try{localStorage.setItem(LS+':state:'+ui.room,JSON.stringify(state));localStorage.setItem(LS+':ward:'+ui.room,JSON.stringify(wardrobe))}
+  catch(e){toast('⚠️ Local storage full – remove some photos')}
+}
+function commit(){state.updatedAt=Date.now();saveLocal();queuePush();render()}
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',2600)}
+// ---------- Firebase ----------
+let db=null,unsubs=[],pushT=null,syncState='local';
+function getCfg(){try{return JSON.parse(localStorage.getItem(LS+':fbcfg'))||FIREBASE_CONFIG}catch(e){return FIREBASE_CONFIG}}
+function setSync(s,msg){syncState=s;const b=$('#syncBadge');b.className='badge '+(s==='live'?'b-ok':s==='connecting'?'b-warn':s==='error'?'b-bad':'');b.textContent=msg||({local:'Local only',connecting:'Connecting…',live:'● Live',error:'Sync error'})[s]}
+function roomRef(){return db.collection('rooms').doc(ui.room)}
+function startSync(){
+  unsubs.forEach(u=>u());unsubs=[];
+  const cfg=getCfg();
+  if(!cfg||!window.firebase){setSync('local');return}
+  try{
+    setSync('connecting');
+    const app=firebase.apps.length?firebase.app():firebase.initializeApp(cfg);
+    db=firebase.firestore(app);
+    unsubs.push(roomRef().onSnapshot(snap=>{
+      setSync('live');
+      if(!snap.exists){pushNow();return}
+      const d=snap.data();
+      if(d.client===CLIENT && d.updatedAt<=state.updatedAt) return;
+      if(d.state){state=JSON.parse(d.state);saveLocal();render()}
+    },err=>{console.warn(err);setSync('error','Sync error: '+(err.code||''))}));
+    unsubs.push(roomRef().collection('wardrobe').onSnapshot(qs=>{
+      const remote=qs.docs.map(x=>x.data());
+      if(!remote.length && wardrobe.length){wardrobe.forEach(pushItem);return}
+      wardrobe=remote.sort((a,b)=>(a.created||0)-(b.created||0));saveLocal();render();
+    },err=>console.warn(err)));
+  }catch(e){console.warn(e);setSync('error','Config error')}
+}
+function queuePush(){if(!db)return;clearTimeout(pushT);pushT=setTimeout(pushNow,700)}
+function pushNow(){
+  if(!db)return;const s=JSON.stringify(state);
+  if(s.length>900000)toast('⚠️ Room document near Firestore 1MB limit');
+  roomRef().set({state:s,updatedAt:state.updatedAt,client:CLIENT}).catch(e=>{console.warn(e);setSync('error','Write failed')});
+}
+function pushItem(it){if(!db)return;if(JSON.stringify(it).length>950000){toast('Photo too large for cloud');return}
+  roomRef().collection('wardrobe').doc(it.id).set(it).catch(e=>console.warn(e))}
+function delItemRemote(id){if(db)roomRef().collection('wardrobe').doc(id).delete().catch(e=>console.warn(e))}
+// ---------- Helpers ----------
+const who=()=>ui.persona;
+const fmtDate=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+function prog(owner){const l=state.checklist.filter(i=>!owner||i.owner===owner);const d=l.filter(i=>i.done).length;return{d,t:l.length,p:l.length?Math.round(d/l.length*100):0}}
+function barHTML(label,p){return `<div class="row"><b style="font-size:13px">${label}</b><span class="sp"></span><span class="mut">${p.d}/${p.t} · ${p.p}%</span></div><div class="bar"><i style="width:${p.p}%"></i></div>`}
+const catOf=k=>CATS.find(c=>c[0]===k)||CATS[5];
+function itemCard(it,actions=true){return `<div class="witem"><div class="ph" style="${it.photo?`background-image:url(${it.photo})`:''}">${it.photo?'':catOf(it.cat)[1]}</div>
+ <div class="in"><b>${esc(it.name||catOf(it.cat)[2])}</b><span class="badge b-${it.owner}">${OWN[it.owner]}</span> ${it.packed?'<span class="badge b-ok">Packed</span>':'<span class="badge">Not packed</span>'}
+ <div class="mut" style="margin-top:4px">${it.color?'🎨 '+esc(it.color):''} ${it.warmth?'🌡️ '+esc(it.warmth):''}</div>
+ ${actions?`<div class="row" style="margin-top:6px"><button class="btn g s" onclick="togglePacked('${it.id}')">${it.packed?'Unpack':'Pack'}</button><button class="btn g s" onclick="editItem('${it.id}')">Edit</button><button class="btn d s" onclick="delItem('${it.id}')">✕</button></div>`:''}</div></div>`}
+// ---------- Render ----------
+function render(){
+  document.body.className=ui.persona;
+  document.querySelectorAll('#persona button').forEach(b=>b.classList.toggle('on',b.dataset.p===ui.persona));
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===ui.tab));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+ui.tab));
+  ({home:rHome,itin:rItin,ward:rWard,pack:rPack,set:rSet})[ui.tab]();
+}
+function alertsHTML(){return `<h2>🚨 Action & Warning Flags</h2>`+state.alerts.map(a=>`<div class="card alert ${a.status!=='open'?'res':''}"><div class="row"><h3 style="margin:0">${esc(a.title)}</h3><span class="sp"></span><span class="badge ${a.status==='open'?'b-warn':'b-ok'}">${a.status==='open'?'Action needed':'Resolved'}</span></div>
+ <p class="mut">${esc(a.detail)}</p><button class="btn g s" onclick="toggleAlert('${a.id}')">${a.status==='open'?'✓ Mark resolved':'↺ Reopen'}</button></div>`).join('')}
+function rHome(){
+  const p=who(),b=prog('billy'),z=prog('izzy'),s=prog('shared'),all=prog();
+  const days=Math.ceil((new Date('2026-10-22T15:45:00+09:00')-Date.now())/864e5);
+  let h=`<div class="card hero"><div class="row"><div><div class="mut">${days>0?'Countdown to Seoul':'Trip status'}</div><div class="stat">${days>0?days+' days':'In Seoul 🇰🇷'}</div></div><span class="sp"></span><div style="text-align:right"><div class="mut">Oct 22 – Nov 1, 2026</div><b>Josun Palace · Gangnam</b></div></div></div>`;
+  if(p==='billy'){
+    h+=`<div class="grid g2"><div class="card"><h3>👔 Billy's Packing</h3>${barHTML('My items',b)}${barHTML('Shared items',s)}</div>
+    <div class="card"><h3>Status</h3><div class="row"><span class="badge b-gold">✈️ AA ConciergeKey</span><span class="badge b-gold">Marriott Bonvoy</span></div>
+    <p class="mut">ConciergeKey: priority check-in, Flagship lounge access, CK rep assistance for AA281 & return flight. Use CK for Mongtan queue help.</p></div></div>
+    <div class="card"><h3>🏨 Marriott Bonvoy – Josun Palace, a Luxury Collection Hotel</h3><p class="mut">231 Teheran-ro, Gangnam-gu, Seoul · Check-in Oct 22 · Check-out Nov 1 (10 nights)<br>Member benefits: confirm suite upgrade, late checkout request for Nov 1 (flight 6:35 PM), birthday amenity Oct 26, lounge access.</p></div>`;
+  }else if(p==='izzy'){
+    const mine=state.checklist.filter(i=>i.owner==='izzy');
+    h+=`<div class="grid g2"><div class="card"><h3>🤵 Izzy's Packing</h3>${barHTML('My items',z)}${barHTML('Shared items',s)}</div>
+    <div class="card"><h3>📝 Izzy's Personal Checklist</h3>${mine.map(chkRow).join('')||'<p class="mut">No items yet</p>'}</div></div>`;
+  }else{
+    h+=`<div class="grid g3"><div class="card"><h3>🧳 Overall</h3>${barHTML('All items',all)}</div><div class="card">${barHTML('👔 Billy',b)}${barHTML('🤵 Izzy',z)}</div><div class="card">${barHTML('🇰🇷 Shared',s)}<div class="mut">👗 ${wardrobe.length} wardrobe items · ${wardrobe.filter(w=>w.packed).length} packed</div></div></div>
+    <div class="card"><h3>✈️ Trip Details</h3><p class="mut">Out: AA281 · Oct 21 MIA → DFW → ICN (arr Oct 22, 3:45 PM) · Private Hyundai Staria transfer<br>Hotel: Josun Palace, Gangnam (Marriott Bonvoy)<br>Home: Nov 1 · AA from ICN, departs 6:35 PM<br>🎂 Billy's Birthday: Monday Oct 26</p></div>`;
+  }
+  if(p!=='shared'){h+=`<h2>${p==='billy'?'👔 Billy':'🤵 Izzy'}'s Wardrobe</h2><div class="wgrid">${wardrobe.filter(w=>w.owner===p).map(i=>itemCard(i)).join('')||'<p class="mut">No items yet – add some in 📸 Wardrobe.</p>'}</div><br>`}
+  h+=alertsHTML();
+  $('#t-home').innerHTML=h;
+}
+function rItin(){
+  const persons=who()==='shared'?['billy','izzy']:[who()];
+  let h=`<div class="row"><h2>🗓️ Daily Itinerary & Lookbook</h2><span class="sp"></span><button class="btn s" onclick="editEv()">+ Add item</button></div><p class="mut">Weather shown is typical late-October Seoul forecast (Oct 22 per trip notes).</p>`;
+  for(const [d,dow,hi,lo,wx,theme] of DAYS){
+    const evs=state.itinerary.filter(e=>e.date===d).sort((a,b)=>tmv(a.time)-tmv(b.time));
+    if(d==='2026-10-22') evs.unshift({id:'',time:'Oct 21',title:'🛫 Depart MIA on AA281',detail:'via DFW'});
+    h+=`<div class="card day ${d==='2026-10-26'?'bday':''}"><div class="row"><h3 style="margin:0">${dow} ${fmtDate(d)} · ${theme}</h3></div>
+    <div class="wx">🌤️ High ${hi}°F / Low ${lo}°F · ${wx}${d==='2026-10-22'?'':' <span class="mut">(typical forecast)</span>'}</div>
+    ${evs.map(e=>`<div class="ev"><div class="tm">${esc(e.time)}</div><div class="sp"><b style="font-size:14px">${esc(e.title)}</b><div class="mut">${esc(e.detail)}</div></div>${e.id?`<button class="del" title="Edit" onclick="editEv('${e.id}')">✎</button>`:''}</div>`).join('')}
+    ${persons.map(p=>outfitHTML(d,p)).join('')}</div>`;
+  }
+  $('#t-itin').innerHTML=h;
+}
+function tmv(t){const m=/(\d+):(\d+)\s*(AM|PM)/i.exec(t||'');if(!m)return t==='All day'?-1:9999;let h=+m[1]%12+(m[3].toUpperCase()==='PM'?12:0);return h*60+ +m[2]}
+function outfitHTML(d,p){
+  const o=(state.outfits[d]||{})[p]||{};
+  return `<div style="margin-top:10px"><span class="badge b-${p}">${p==='billy'?'👔 Billy':'🤵 Izzy'}'s outfit</span><div class="slots">${SLOTS.map(([k,l,c])=>{
+    const opts=wardrobe.filter(w=>w.cat===c&&(w.owner===p||w.owner==='shared'));const sel=wardrobe.find(w=>w.id===o[k]);
+    return `<div class="slot">${catOf(c)[1]} ${l}<select onchange="setOutfit('${d}','${p}','${k}',this.value)"><option value="">— none —</option>${opts.map(w=>`<option value="${w.id}" ${w.id===o[k]?'selected':''}>${esc(w.name||catOf(w.cat)[2])}${w.color?' · '+esc(w.color):''}</option>`).join('')}</select>${sel&&sel.photo?`<img src="${sel.photo}" alt="">`:''}</div>`}).join('')}</div></div>`;
+}
+function rWard(){
+  const f=ui.wardFilter;const list=wardrobe.filter(w=>f==='all'||w.owner===f);
+  let h=`<div class="row"><h2>📸 Photo Wardrobe</h2><span class="sp"></span></div>
+  <div class="card"><div class="row"><label class="btn">📷 Snap photo<input id="camIn" type="file" accept="image/*" capture="environment" hidden onchange="photoPicked(this)"></label>
+  <label class="btn g">🖼️ Upload<input id="fileIn" type="file" accept="image/*" hidden onchange="photoPicked(this)"></label><button class="btn g" onclick="editItem()">+ Without photo</button></div><p class="mut">Photos are compressed (max 800px) before saving & syncing.</p></div>
+  <div class="chips">${['all','billy','izzy','shared'].map(x=>`<span class="chip ${f===x?'on':''}" onclick="ui.wardFilter='${x}';saveUI();render()">${x==='all'?'All':OWN[x]}</span>`).join('')}</div>
+  <div class="wgrid">${list.map(i=>itemCard(i)).join('')||'<p class="mut">No items yet.</p>'}</div>
+  <h2 style="margin-top:20px">🛬 Landed Outfit Preview</h2><p class="mut">Everything packed in the luggage, by category.</p>`;
+  for(const [k,e,n] of CATS){const its=wardrobe.filter(w=>w.packed&&w.cat===k&&(f==='all'||w.owner===f));
+    h+=`<div class="card"><h3>${e} ${n} <span class="badge">${its.length}</span></h3>${its.length?`<div class="wgrid">${its.map(i=>itemCard(i,false)).join('')}</div>`:'<p class="mut">Nothing packed yet</p>'}</div>`}
+  $('#t-ward').innerHTML=h;
+}
+function chkRow(i){return `<div class="chk ${i.done?'done':''}"><input type="checkbox" ${i.done?'checked':''} onchange="toggleChk('${i.id}')"><span class="t sp">${esc(i.text)}</span><span class="badge b-${i.owner}">${OWN[i.owner]}</span><button class="del" onclick="delChk('${i.id}')">✕</button></div>`}
+function rPack(){
+  const f=ui.packFilter;const list=state.checklist.filter(i=>f==='all'||i.owner===f);
+  let h=`<h2>🧳 Packing Checklist</h2><div class="card">${barHTML('Overall',prog())}${barHTML('👔 Billy',prog('billy'))}${barHTML('🤵 Izzy',prog('izzy'))}${barHTML('🇰🇷 Shared',prog('shared'))}</div>
+  <div class="chips">${[['all','All'],['billy',"Billy's"],['izzy',"Izzy's"],['shared','Shared']].map(([x,l])=>`<span class="chip ${f===x?'on':''}" onclick="ui.packFilter='${x}';saveUI();render()">${l}</span>`).join('')}</div>
+  <div class="card"><div class="row"><input id="newChk" placeholder="Add item…" class="sp" style="min-width:150px"><select id="newCat">${state.cats.map(c=>`<option>${esc(c)}</option>`).join('')}</select>
+  <select id="newOwn">${Object.entries(OWN).map(([k,v])=>`<option value="${k}" ${k===(f==='all'?(who()):f)?'selected':''}>${v}</option>`).join('')}</select><button class="btn" id="addChkBtn" onclick="addChk()">Add</button></div>
+  <div class="row" style="margin-top:8px"><input id="newCatName" placeholder="New category…" class="sp"><button class="btn g" onclick="addCat()">+ Category</button></div></div>`;
+  for(const c of state.cats){const its=list.filter(i=>i.cat===c);
+    h+=`<div class="card"><div class="row"><h3 style="margin:0">${esc(c)}</h3><span class="sp"></span><span class="mut">${its.filter(i=>i.done).length}/${its.length}</span>${its.length?'':`<button class="del" onclick="delCat('${esc(c)}')">🗑</button>`}</div>${its.map(chkRow).join('')}</div>`}
+  $('#t-pack').innerHTML=h;
+  $('#newChk').onkeydown=e=>{if(e.key==='Enter')addChk()};
+}
+function rSet(){
+  const cfg=getCfg();
+  $('#t-set').innerHTML=`<h2>☁️ Cloud Sync & Settings</h2>
+  <div class="card"><h3>Room code</h3><div class="row"><input id="roomIn" value="${esc(ui.room)}" class="sp"><button class="btn" onclick="setRoom()">Join room</button></div><p class="mut">Everyone using the same room code sees the same trip. Status: <span class="badge">${syncState}</span></p></div>
+  <div class="card"><h3>Firebase web config</h3><textarea id="cfgIn" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","appId":"..."}'>${cfg?esc(JSON.stringify(cfg,null,1)):''}</textarea>
+  <div class="row" style="margin-top:8px"><button class="btn" onclick="saveCfg()">Save & connect</button><button class="btn g" onclick="clearCfg()">Clear</button></div></div>
+  <div class="card"><h3>📘 How to turn on cloud sync</h3><ol>
+   <li>Go to <b>console.firebase.google.com</b> → <b>Add project</b> (free Spark plan; Analytics optional).</li>
+   <li>Build → <b>Firestore Database</b> → <b>Create database</b> → start in <b>test mode</b>.</li>
+   <li>Project settings ⚙️ → <b>Your apps</b> → Web (<code>&lt;/&gt;</code>) → register → copy the <code>firebaseConfig</code> object.</li>
+   <li>Paste it above (as JSON) and tap <b>Save & connect</b>. Badge turns <b>● Live</b>. Do the same on Izzy's phone with the same room code.</li>
+   <li>Rules (test-mode style): <code>rules_version='2'; service cloud.firestore { match /databases/{db}/documents { match /rooms/{room}/{doc=**} { allow read, write: if true; } } }</code> — test-mode rules expire after 30 days; extend the date or use the rule above.</li></ol>
+   <p class="mut">Data layout: <code>rooms/{code}</code> holds checklist, itinerary, alerts & outfits; each wardrobe photo is its own doc in <code>rooms/{code}/wardrobe</code> to stay under Firestore's 1MB limit. Everything is also saved in this browser's localStorage for offline use.</p></div>
+  <div class="card"><h3>Data</h3><div class="row"><button class="btn g" onclick="exportData()">⬇️ Export JSON</button><button class="btn d" onclick="resetData()">Reset trip data</button></div></div>`;
+}
+// ---------- Actions ----------
+function toggleAlert(id){const a=state.alerts.find(x=>x.id===id);a.status=a.status==='open'?'resolved':'open';commit()}
+function toggleChk(id){const i=state.checklist.find(x=>x.id===id);i.done=!i.done;commit()}
+function delChk(id){state.checklist=state.checklist.filter(x=>x.id!==id);commit()}
+function addChk(){const t=$('#newChk').value.trim();if(!t)return;state.checklist.push({id:uid(),text:t,cat:$('#newCat').value,owner:$('#newOwn').value,done:false});commit();toast('Added ✓')}
+function addCat(){const c=$('#newCatName').value.trim();if(!c||state.cats.includes(c))return;state.cats.push(c);commit()}
+function delCat(c){state.cats=state.cats.filter(x=>x!==c);commit()}
+function setOutfit(d,p,k,v){state.outfits[d]=state.outfits[d]||{};state.outfits[d][p]=state.outfits[d][p]||{};state.outfits[d][p][k]=v;commit()}
+function togglePacked(id){const it=wardrobe.find(w=>w.id===id);it.packed=!it.packed;pushItem(it);commit()}
+function delItem(id){if(!confirm('Delete this item?'))return;wardrobe=wardrobe.filter(w=>w.id!==id);delItemRemote(id);commit()}
+function openModal(h){$('#modalBody').innerHTML=h;$('#modal').classList.add('on')}
+function closeModal(){$('#modal').classList.remove('on')}
+$('#modal').onclick=e=>{if(e.target.id==='modal')closeModal()};
+let pendingPhoto=null;
+function compress(file){return new Promise((res,rej)=>{const r=new FileReader();r.onerror=rej;r.onload=()=>{const img=new Image();img.onerror=rej;img.onload=()=>{const M=800,s=Math.min(1,M/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.round(img.width*s);c.height=Math.round(img.height*s);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.7))};img.src=r.result};r.readAsDataURL(file)})}
+async function photoPicked(inp){const f=inp.files[0];if(!f)return;try{pendingPhoto=await compress(f);editItem(null,pendingPhoto)}catch(e){toast('Could not read image')}inp.value=''}
+function editItem(id,photo){
+  const it=id?wardrobe.find(w=>w.id===id):{id:'',name:'',cat:'tops',owner:who(),color:'',warmth:'',photo:photo||'',packed:true};
+  pendingPhoto=it.photo;
+  openModal(`<h3>${id?'Edit':'Add'} wardrobe item</h3><div class="form">
+  ${it.photo?`<img src="${it.photo}" style="width:100%;max-height:240px;object-fit:contain;border-radius:12px">`:''}
+  <label>Name<input id="wName" value="${esc(it.name)}" placeholder="e.g. Navy cashmere crewneck"></label>
+  <label>Type<select id="wCat">${CATS.map(([k,e,n])=>`<option value="${k}" ${k===it.cat?'selected':''}>${e} ${n}</option>`).join('')}</select></label>
+  <label>Owner<select id="wOwn">${Object.entries(OWN).map(([k,v])=>`<option value="${k}" ${k===it.owner?'selected':''}>${v}</option>`).join('')}</select></label>
+  <label>Color notes<input id="wColor" value="${esc(it.color)}" placeholder="e.g. charcoal / cream"></label>
+  <label>Warmth notes<input id="wWarm" value="${esc(it.warmth)}" placeholder="e.g. Warm – good for 45°F nights"></label>
+  <label class="row"><input type="checkbox" id="wPacked" ${it.packed?'checked':''} style="width:auto"> Packed in luggage</label>
+  <div class="row"><button class="btn" id="wSave" onclick="saveItem('${it.id}')">Save</button><button class="btn g" onclick="closeModal()">Cancel</button></div></div>`);
+}
+function saveItem(id){
+  const data={name:$('#wName').value.trim(),cat:$('#wCat').value,owner:$('#wOwn').value,color:$('#wColor').value.trim(),warmth:$('#wWarm').value.trim(),packed:$('#wPacked').checked};
+  let it;if(id){it=wardrobe.find(w=>w.id===id);Object.assign(it,data)}else{it={id:uid(),created:Date.now(),photo:pendingPhoto||'',...data};wardrobe.push(it)}
+  pushItem(it);closeModal();commit();toast('Saved ✓');
+}
+function editEv(id){
+  const e=id?state.itinerary.find(x=>x.id===id):{id:'',date:'2026-10-22',time:'',title:'',detail:''};
+  openModal(`<h3>${id?'Edit':'Add'} itinerary item</h3><div class="form">
+  <label>Day<select id="eDate">${DAYS.map(d=>`<option value="${d[0]}" ${d[0]===e.date?'selected':''}>${d[1]} ${fmtDate(d[0])}</option>`).join('')}</select></label>
+  <label>Time<input id="eTime" value="${esc(e.time)}" placeholder="7:00 PM"></label>
+  <label>Title<input id="eTitle" value="${esc(e.title)}"></label><label>Details<input id="eDet" value="${esc(e.detail)}"></label>
+  <div class="row"><button class="btn" onclick="saveEv('${e.id}')">Save</button><button class="btn g" onclick="closeModal()">Cancel</button>${id?`<span class="sp"></span><button class="btn d" onclick="delEv('${id}')">Delete</button>`:''}</div></div>`);
+}
+function saveEv(id){const d={date:$('#eDate').value,time:$('#eTime').value.trim(),title:$('#eTitle').value.trim(),detail:$('#eDet').value.trim()};if(!d.title)return;
+  if(id)Object.assign(state.itinerary.find(x=>x.id===id),d);else state.itinerary.push({id:uid(),who:'shared',...d});closeModal();commit()}
+function delEv(id){state.itinerary=state.itinerary.filter(x=>x.id!==id);closeModal();commit()}
+function setRoom(){const r=$('#roomIn').value.trim().toUpperCase()||'SEOUL-2026';ui.room=r;saveUI();loadLocal();startSync();render();toast('Room '+r)}
+function saveCfg(){try{const t=$('#cfgIn').value.trim().replace(/^[^{]*/,'').replace(/;?\s*$/,'');let c;try{c=JSON.parse(t)}catch(e){c=Function('return ('+t+')')()}if(!c.projectId)throw 0;localStorage.setItem(LS+':fbcfg',JSON.stringify(c));toast('Saved – connecting…');setTimeout(()=>location.reload(),600)}catch(e){toast('Invalid config JSON')}}
+function clearCfg(){localStorage.removeItem(LS+':fbcfg');location.reload()}
+function exportData(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({state,wardrobe},null,1)],{type:'application/json'}));a.download='seoul-trip-'+ui.room+'.json';a.click()}
+function resetData(){if(!confirm('Reset checklist, itinerary, alerts & outfits to defaults?'))return;state=defaults();commit()}
+// ---------- Init ----------
+document.querySelectorAll('#persona button').forEach(b=>b.onclick=()=>{ui.persona=b.dataset.p;saveUI();render()});
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{ui.tab=b.dataset.t;saveUI();render();scrollTo({top:0,behavior:'smooth'})});
+loadLocal();render();startSync();
+</script>
+</body>
+</html>
